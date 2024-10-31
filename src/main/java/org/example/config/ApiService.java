@@ -1,11 +1,13 @@
 package org.example.config;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import lombok.Getter;
 
 
 public class ApiService {
-    private static final Dotenv dotenv = Dotenv.load();
-    public static final String ApiKey = dotenv.get("API_KEY");
+    private final Dotenv dotenv = Dotenv.load();
+    @Getter
+    private final String ApiKey = dotenv.get("API_KEY");
 
 
 }

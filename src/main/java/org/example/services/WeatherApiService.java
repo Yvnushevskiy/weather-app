@@ -1,18 +1,26 @@
 package org.example.services;
+import org.example.config.ApiService;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import static org.example.config.ApiService.ApiKey;
+
 
 public class WeatherApiService {
-    static HttpClient client = HttpClient.newHttpClient();
-//    HttpRequest request = HttpRequest.newBuilder()
-//            .uri(new URI())
-    public static String getByName(String name,int limit){
+    private final ApiService apiService;
+    private final HttpClient client;
+
+    public WeatherApiService(){
+        this.apiService = new ApiService();
+        this.client = HttpClient.newHttpClient();
+    }
+
+
+    public  String getByName(String name,int limit){
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://api.openweathermap.org/geo/1.0/direct?q="+name+"&limit="+limit+"&appid="+ ApiKey))
+                    .uri(URI.create("http://api.openweathermap.org/geo/1.0/direct?q="+name+"&limit="+limit+"&appid="+ apiService.getApiKey()))
                     .GET()
                     .build();
             return client.send(request, HttpResponse.BodyHandlers.ofString()).body();
