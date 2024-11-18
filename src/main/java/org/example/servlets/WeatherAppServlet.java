@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-
+//TODO в конце проекта пройтись через mvn dependency:analyze
 
 @WebServlet("/home")
 public class WeatherAppServlet extends HttpServlet {

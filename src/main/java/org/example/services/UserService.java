@@ -4,9 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.example.model.User;
 import org.example.repositories.UserRepository;
-import org.example.repositories.UserRepositoryImpl;
-
-import java.util.HashMap;
 
 public class UserService {
     private final UserRepository userRepository;

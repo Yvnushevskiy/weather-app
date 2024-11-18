@@ -22,7 +22,6 @@ public class ApiLoader {  //TODO переделать с констант и с�
             throw new RuntimeException("API key in '.env' not found" + e.getMessage(), e);
         }
 
-
     }
 
     public static String getApiKey() {
