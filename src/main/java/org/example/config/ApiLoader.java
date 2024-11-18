@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.io.IOException;
 
 
-public class ApiLoader {
+public class ApiLoader {  //TODO переделать с констант и статиков , на инициализацию в конструкторе," используя переменное окружение"
     private static final Dotenv DOTENV;
     private static final String API_KEY;
 
