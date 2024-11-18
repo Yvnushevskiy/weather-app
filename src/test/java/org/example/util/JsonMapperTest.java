@@ -25,16 +25,16 @@ public class JsonMapperTest {
     public void testJsonToLocation() throws IOException {
 
         String jsonResponse = weatherApiService.getByName("london", 2);
-        System.out.println("JSON Response: " + jsonResponse);
 
         List<Location> locations = jsonMapper.convertJsonToLocation(jsonResponse);
 
         for (Location location : locations) {
-            System.out.println("Город: " + location.getName());
-            System.out.println("Широта: " + location.getLat());
-            System.out.println("Долгота: " + location.getLon());
-            System.out.println("Страна: " + location.getCountry());
+            assert location.getName() != null && !location.getName().isEmpty() : "Город не должен быть пустым";
+            assert location.getLat() != null : "Широта не должна быть null";
+            assert location.getLon() != null : "Долгота не должна быть null";
+            assert location.getCountry() != null && !location.getCountry().isEmpty() : "Страна не должна быть пустой";
         }
+
 
     }
 }
