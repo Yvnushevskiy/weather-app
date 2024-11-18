@@ -15,14 +15,13 @@ public class HibernateSessionFactoryUtil {
             Configuration configuration = new Configuration();
             configuration.configure();
             return configuration.buildSessionFactory();
-        } catch (Throwable ex) {
-            // Обработка ошибок
+        } catch (Exception ex) {
             throw new ExceptionInInitializerError(ex);
         }
     }
 
 
-   public static Session getCurrentSession() {
+    public static Session getCurrentSession() {
         return getSessionFactory().getCurrentSession();
     }
 

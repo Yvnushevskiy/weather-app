@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 
 
 public class JsonMapperTest {
@@ -23,17 +24,17 @@ public class JsonMapperTest {
     @Test
     public void testJsonToLocation() throws IOException {
 
-        String jsonResponse = weatherApiService.getByName("london",1);
+        String jsonResponse = weatherApiService.getByName("london", 2);
         System.out.println("JSON Response: " + jsonResponse);
 
-        Location location = jsonMapper.convertJsonToLocation(jsonResponse);
+        List<Location> locations = jsonMapper.convertJsonToLocation(jsonResponse);
 
-        // Выводим данные Location
-        System.out.println("Город: " + location.getName());
-        System.out.println("Широта: " + location.getLat());
-        System.out.println("Долгота: " + location.getLon());
-        System.out.println("Страна: " + location.getCountry());
-
+        for (Location location : locations) {
+            System.out.println("Город: " + location.getName());
+            System.out.println("Широта: " + location.getLat());
+            System.out.println("Долгота: " + location.getLon());
+            System.out.println("Страна: " + location.getCountry());
+        }
 
     }
 }

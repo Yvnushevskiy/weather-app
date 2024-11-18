@@ -26,7 +26,7 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false,length =10)
+    @Column(nullable = false, length = 100)
     private String country;
 
     @Column(nullable = false, length = 100)

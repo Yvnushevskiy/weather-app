@@ -19,9 +19,10 @@ public class LocationRepositoryImpl {
             if (tx != null) {
                 tx.rollback();
             }
-            throw new LocationNotFoundException(location.getName(),e);
+            throw new LocationNotFoundException(location.getName(), e);
         }
     }
+
     public void remove(Location location) {
         Transaction tx = null;
         try (org.hibernate.Session Hsession = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
@@ -32,7 +33,7 @@ public class LocationRepositoryImpl {
             if (tx != null) {
                 tx.rollback();
             }
-            throw new LocationPersistException(location.getName(),e);
+            throw new LocationPersistException(location.getName(), e);
         }
     }
 }

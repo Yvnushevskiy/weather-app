@@ -23,13 +23,13 @@ public class SessionRepositoryImpl {
         }
     }
 
-    public void SessionRefresh(Session session){
+    public void SessionRefresh(Session session) {
         Transaction tx = null;
         try (org.hibernate.Session Hsession = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             tx = Hsession.beginTransaction();
             Hsession.update(session);
             tx.commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             if (tx != null) {
                 tx.rollback();
             }

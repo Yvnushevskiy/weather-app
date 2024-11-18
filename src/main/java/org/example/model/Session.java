@@ -18,7 +18,7 @@ public class Session {
 
     @Id
     @Column(length = 36) // Для хранения UUID
-    private String id;
+    private String UUID;
 
     // Связь с пользователем
     @ManyToOne

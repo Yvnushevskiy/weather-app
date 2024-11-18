@@ -11,19 +11,20 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 
-@WebServlet("/Weather-app")
+@WebServlet("/home")
 public class WeatherAppServlet extends HttpServlet {
 
-        @Override
-        public void init(ServletConfig config) throws ServletException {
-            //init если нужно накидать что будет инициализироваться вместе с сервлетом Todo
-            super.init(config);
-        }
-
-        @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            HttpSession session = req.getSession();
-            if(session.getAttribute("user") != null) {}
-        }
-
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        //init если нужно накидать что будет инициализироваться вместе с сервлетом Todo
+        super.init(config);
     }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        if (session.getAttribute("user") != null) {
+        }
+    }
+
+}
