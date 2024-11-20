@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.stream.Stream;
 
-@WebServlet("/weather-app/login")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
     private static final long EXPIRATION_TIME = 60 * 30;
