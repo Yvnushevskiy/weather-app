@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.model.User;
 import org.example.repositories.UserRepository;
 import org.example.repositories.UserRepositoryImpl;
 import org.example.services.UserService;
@@ -17,6 +18,12 @@ import java.util.stream.Stream;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+    UserService userService;
+    UserRepositoryImpl userRepository;
+    public LoginServlet() {
+        this.userRepository = new UserRepositoryImpl();
+        this.userService = new UserService(userRepository);
+    }
 
     private static final long EXPIRATION_TIME = 60 * 30;
 
@@ -24,8 +31,6 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        UserRepositoryImpl userRepository = new UserRepositoryImpl();
-        UserService userService = new UserService(userRepository);   // TODO в конструктор переместить
 
         /*TODO
         if (userservice.isvaliduser(username,password)){
