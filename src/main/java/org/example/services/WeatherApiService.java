@@ -1,7 +1,9 @@
 package org.example.services;
 
+import jakarta.ws.rs.core.UriBuilder;
 import org.example.config.ApiLoader;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -9,32 +11,51 @@ import java.net.http.HttpResponse;
 
 
 public class WeatherApiService {
-    private final ApiLoader apiService;
     private final HttpClient client;
 
     public WeatherApiService() {
-        this.apiService = new ApiLoader();
         this.client = HttpClient.newHttpClient();
     }
 
 
-    public String getByName(String name, int limit) {
+    public String getLocationByName(String name, int limit) {
         try {
+            URI uri = UriBuilder.fromUri(ApiLoader.getApiUrl())
+                    .path("/geo/1.0/direct")
+                    .queryParam("q",name)
+                    .queryParam("limit",limit)
+                    .queryParam("appid",ApiLoader.getApiKey())
+                    .build();
+
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://api.openweathermap.org/geo/1.0/direct?q=" + name + "&limit=" + limit + "&appid=" + ApiLoader.getApiKey()))
+                    .uri(uri)
                     .GET()
                     .build();
+
             return client.send(request, HttpResponse.BodyHandlers.ofString()).body();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException("Request failed:"+e.getMessage(),e);
         }
     }
 
-    /*public static String getByCoordinates(double lat, double lon){
+    public  String getWeatherByCoordinates(double lat, double lon){
         try{
-            HttpRequest request= HttpRequest.newBuilder()
-                    .uri(URI.create("https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key})"))
+            URI uri = UriBuilder.fromUri(ApiLoader.getApiUrl())
+                    .path("data/2.5/weather")
+                    .queryParam("lat", lat)
+                    .queryParam("lon",lon)
+                    .queryParam("appid",ApiLoader.getApiKey())
+                    .build();
 
+
+            HttpRequest request= HttpRequest.newBuilder()
+                    .uri(uri)
+                    .GET()
+                    .build();
+            return client.send(request, HttpResponse.BodyHandlers.ofString()).body();
+        } catch (IOException | InterruptedException e){
+            throw new RuntimeException("Request failed:"+e.getMessage(),e);
         }
-   }*/
+   }
 }
