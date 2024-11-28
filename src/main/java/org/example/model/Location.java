@@ -32,6 +32,9 @@ public class Location {
     @Column(nullable = false, length = 100)
     private String name;
 
+    @Column(nullable = false, length = 100)
+    private String state;
+
     @Column(nullable = false, precision = 10, scale = 7)
     private BigDecimal lat;
 

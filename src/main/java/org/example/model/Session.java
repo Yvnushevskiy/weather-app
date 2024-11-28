@@ -17,10 +17,10 @@ import java.util.Date;
 public class Session {
 
     @Id
-    @Column(length = 36) // Для хранения UUID
+    @Column(length = 36)
     private String UUID;
 
-    // Связь с пользователем
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
