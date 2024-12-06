@@ -5,6 +5,9 @@ import jakarta.servlet.http.HttpSession;
 import org.example.model.User;
 import org.example.repositories.UserRepository;
 
+import java.util.Objects;
+import java.util.Optional;
+
 public class UserService {
     private final UserRepository userRepository;
 
@@ -12,13 +15,21 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+
+    public boolean DoesUserExist(String username) {
+        return userRepository.findByUsername(username).isPresent();
+    }
+
     public boolean isValidUser(String username, String password) {
-        return false; //TODO
+        Optional<User> user = userRepository.findByUsername(username);
+
+        return user.isPresent()&&password.equals(user.get().getPassword());
     }
 
     public boolean isSessionValid(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         return session != null;
+        //TODO
     }
 
     public void Logout(HttpServletRequest request) {

@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Location {
     @Override
     public String toString() {
@@ -41,7 +40,6 @@ public class Location {
     @Column(nullable = false, precision = 10, scale = 7)
     private BigDecimal lon;
 
-    // Связь с пользователем
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
