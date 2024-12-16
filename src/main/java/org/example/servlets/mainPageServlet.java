@@ -22,13 +22,7 @@ import java.util.stream.Stream;
 
 @WebServlet("/")
 public class mainPageServlet extends HttpServlet {
-    UserService userService;
-    UserRepositoryImpl userRepository;
 
-    public mainPageServlet() {
-        this.userRepository = new UserRepositoryImpl();
-        this.userService = new UserService(userRepository);
-    }
 
 
 

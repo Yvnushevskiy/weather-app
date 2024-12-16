@@ -8,22 +8,25 @@ import org.example.model.User;
 import org.example.util.HibernateSessionFactoryUtil;
 import org.hibernate.Transaction;
 
-public class SessionRepositoryImpl {
-    public void save(Session session) {
+public class SessionRepositoryImpl implements SessionRepository {
+
+    public Session save(Session session) {
         Transaction tx = null;
         try (org.hibernate.Session Hsession = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             tx = Hsession.beginTransaction();
             Hsession.save(session);
             tx.commit();
+            return session;
         } catch (Exception e) {
             if (tx != null) {
                 tx.rollback();
             }
             throw new SessionPersistException(e);
         }
+
     }
 
-    public void SessionRefresh(Session session) {
+    public void sessionRefresh(Session session) {
         Transaction tx = null;
         try (org.hibernate.Session Hsession = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             tx = Hsession.beginTransaction();

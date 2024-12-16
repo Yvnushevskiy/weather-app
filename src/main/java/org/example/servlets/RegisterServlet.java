@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.container.DependencyContainer;
 import org.example.exception.Database.UserPersistException;
 import org.example.model.User;
 import org.example.repositories.UserRepository;
@@ -22,25 +23,19 @@ import java.util.stream.Stream;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
-    UserService userService;
-    UserRepositoryImpl userRepository;
+    UserService userService = DependencyContainer.getInstance().getUserService();
 
-    public RegisterServlet() {
-        this.userRepository = new UserRepositoryImpl();
-        this.userService = new UserService(userRepository);
-    }
 
-    private static final long EXPIRATION_TIME = 60 * 30;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        if(!userService.DoesUserExist(username)){
+        if(!userService.DoesUserExist(username)){             //TODO doesnt work with more then 1 user
                 userService.addUser(username, password);
-                resp.sendRedirect("/home");
+                resp.sendRedirect("login");
         } else {
-            resp.sendRedirect("/register?error=user-already-0exists");
+            resp.sendRedirect("/register?error=user-already-exists");
         }
 
 

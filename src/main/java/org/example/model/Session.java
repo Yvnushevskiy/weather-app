@@ -5,8 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.Date;
+import java.util.UUID;
+
+import static org.hibernate.annotations.UuidGenerator.Style.RANDOM;
 
 @Entity
 @Table(name = "sessions")
@@ -17,8 +21,9 @@ import java.util.Date;
 public class Session {
 
     @Id
-    @Column(length = 36)
-    private String UUID;
+    @GeneratedValue
+    @UuidGenerator(style = RANDOM)
+    private UUID id;
 
 
     @ManyToOne
@@ -26,7 +31,7 @@ public class Session {
     private User user;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "expires_at", nullable = false)
+    @Column(name = "expires_at")
     private Date expiresAt;
 
 }

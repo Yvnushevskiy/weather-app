@@ -1,61 +1,33 @@
 package org.example.servlets;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.model.User;
-import org.example.repositories.UserRepository;
-import org.example.repositories.UserRepositoryImpl;
+import org.example.container.DependencyContainer;
+import org.example.services.SessionService;
 import org.example.services.UserService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.Objects;
-import java.util.stream.Stream;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-    UserService userService;
-    UserRepositoryImpl userRepository;
+    SessionService sessionService = DependencyContainer.getInstance().getSessionService();
+    UserService userService = DependencyContainer.getInstance().getUserService();
 
-    public LoginServlet() {
-        this.userRepository = new UserRepositoryImpl();
-        this.userService = new UserService(userRepository);
-    }
-
-    private static final long EXPIRATION_TIME = 60 * 30;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        if(userService.isValidUser(username,password)){
-            resp.sendRedirect(req.getContextPath() + "/");
-        }else {
-            resp.sendRedirect("login?error=true");
-        }
+        resp.addCookie(new Cookie("WeatherUUID",userService.login(username, password).toString()));
+        resp.sendRedirect("home");
+//            resp.sendRedirect("login?error=true"); todo
 
-
-        /*TODO
-        if (userservice.isvaliduser(username,password)){
-       Http session = req.getSession
-       session.setAttribute("username",username);
-       session.setMaxInactiveInterval(EXPIRATION_TIME);
-       sessionrepository.addsession(userRepository.findbyusername(username),session)
-       }else{
-       chto-to s parolem
-       }
-
-
-
-
-         */
 
 
     }

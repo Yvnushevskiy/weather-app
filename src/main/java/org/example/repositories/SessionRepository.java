@@ -1,9 +1,10 @@
 package org.example.repositories;
 
+import org.example.model.Session;
 import org.example.model.User;
 
 public interface SessionRepository {
-    void addSession(User user, String session);
+    Session save(Session session);
 
-    void refreshSession(User user, String session);
+    void sessionRefresh(Session session);
 }

@@ -10,7 +10,7 @@ public class ApiLoader {  //TODO переделать с констант и с�
     private static final Dotenv DOTENV;
     private static final String API_KEY;
     private static final String API_URL;
-
+    private static final Long SecondsBeforeSessionExpire;
     static {
         try {
             DOTENV = Dotenv.load();
@@ -26,6 +26,11 @@ public class ApiLoader {  //TODO переделать с констант и с�
             API_URL = DOTENV.get("API_URL");
         } catch (Exception e) {
             throw new RuntimeException("API URL in '.env' not found" + e.getMessage(), e);
+        }
+        try{
+            SecondsBeforeSessionExpire = Long.valueOf(DOTENV.get("SecondsBeforeSessionExpire"));
+        }catch (Exception e ){
+            throw new RuntimeException("SecondsBeforeSessionExpire in '.env' not found" + e.getMessage(), e);
         }
 
     }

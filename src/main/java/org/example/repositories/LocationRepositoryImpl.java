@@ -9,7 +9,7 @@ import org.example.modelDTO.LocationDTO;
 import org.example.util.HibernateSessionFactoryUtil;
 import org.hibernate.Transaction;
 
-public class LocationRepositoryImpl {
+public class LocationRepositoryImpl implements LocationRepository {
     public void save(Location location) {
         Transaction tx = null;
         try (org.hibernate.Session Hsession = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
