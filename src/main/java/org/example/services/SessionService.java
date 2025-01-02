@@ -23,7 +23,8 @@ public class SessionService {
         session.setExpiresAt(Date.valueOf(LocalDate.now()));
         return sessionRepository.save(session);
     }
-    public
-
+    public Session getSessionById(UUID sessionId) {
+       return null;
+    }
 }
 

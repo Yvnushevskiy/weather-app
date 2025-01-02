@@ -7,6 +7,9 @@ import org.example.model.Session;
 import org.example.model.User;
 import org.example.util.HibernateSessionFactoryUtil;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
+import java.util.UUID;
 
 public class SessionRepositoryImpl implements SessionRepository {
 
@@ -36,6 +39,17 @@ public class SessionRepositoryImpl implements SessionRepository {
             if (tx != null) {
                 tx.rollback();
             }
+            throw new SessionNotFoundException(e);
+        }
+    }
+
+    public Session findSessionById(UUID id) {
+        try (org.hibernate.Session Hsession = HibernateSessionFactoryUtil.getSessionFactory().openSession()){
+            String hql = "from Session where id = :id";
+            Query<Session> query = Hsession.createQuery(hql, Session.class);
+            query.setParameter("id", id);
+            return query.uniqueResult();
+        } catch (Exception e){
             throw new SessionNotFoundException(e);
         }
     }

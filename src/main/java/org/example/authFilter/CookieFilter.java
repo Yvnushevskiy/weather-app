@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.UUID;
 //TODO if smthg going wrong need swap  28 for WebFilter(urlPatterns=) and count all URL
 
 @WebFilter(urlPatterns = "/*")
@@ -39,8 +40,7 @@ public class CookieFilter implements Filter {
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
                 if ("WeatherUUID".equals(cookie.getName())) {
-                    String sessionID = cookie.getValue();
-
+                    UUID sessionID = UUID.fromString(cookie.getValue());
 
                 }
             }
