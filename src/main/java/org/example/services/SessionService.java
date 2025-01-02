@@ -24,7 +24,7 @@ public class SessionService {
         return sessionRepository.save(session);
     }
     public Session getSessionById(UUID sessionId) {
-       return null;
+       return sessionRepository.findSessionById(sessionId);
     }
 }
 
