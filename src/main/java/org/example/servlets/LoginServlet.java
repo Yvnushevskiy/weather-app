@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.container.DependencyContainer;
+import org.example.exception.Database.UserNotFoundException;
+import org.example.model.User;
 import org.example.services.SessionService;
 import org.example.services.UserService;
 import org.thymeleaf.TemplateEngine;
@@ -24,12 +26,13 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        resp.addCookie(new Cookie("WeatherUUID",userService.login(username, password).toString()));
-        resp.sendRedirect("home");
-//            resp.sendRedirect("login?error=true"); todo
-
-
-
+        try {
+            User user = userService.getUserByUsernameAndPassword(username, password);
+            resp.addCookie(new Cookie("WeatherUUID", sessionService.addNewSessionToUser(user).getId().toString()));
+            resp.sendRedirect("home");
+        } catch (UserNotFoundException e) {
+            resp.sendRedirect("login?error=true");
+        }
     }
 
     @Override

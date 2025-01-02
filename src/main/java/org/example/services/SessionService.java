@@ -17,23 +17,13 @@ import java.util.UUID;
 public class SessionService {
     private final SessionRepository sessionRepository;
 
-    public Session save(Session session) {
+    public Session addNewSessionToUser(User user) {
+        Session session = new Session();
+        session.setUser(user);
+        session.setExpiresAt(Date.valueOf(LocalDate.now()));
         return sessionRepository.save(session);
     }
-
-
-//    public void addUUIDtoUser(String username) {
-//        User user = userService.getByUsername(username);
-//        Session session = new Session();
-//        session.setUser(user);
-//        session.setExpiresAt(Date.valueOf(LocalDate.now()));
-//        sessionRepository.save(session);
-//    }
-
-    public UUID getUUIDbyUsername(String username) {
-
-        return null;
-    }
+    public
 
 }
 

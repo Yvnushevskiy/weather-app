@@ -8,9 +8,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-//TODO if smthg going wrong neew swap  28 for WebFilter(urlPatterns=) and count all URL
+//TODO if smthg going wrong need swap  28 for WebFilter(urlPatterns=) and count all URL
+
 @WebFilter(urlPatterns = "/*")
-public class AuthFilter implements Filter {
+public class CookieFilter implements Filter {
 
     //todo change if for methods
     @Override
@@ -23,30 +24,27 @@ public class AuthFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        Cookie[] cookies = request.getCookies();
 
         if (request.getRequestURI().endsWith("login")) {
-            filterChain.doFilter(request, response);  // Просто пропускаем запрос дальше
+            filterChain.doFilter(request, response);
             return;
         }
         if (request.getRequestURI().endsWith("register")) {
-            filterChain.doFilter(request, response);  // Просто пропускаем запрос дальше
+            filterChain.doFilter(request, response);
             return;
         }
 
-        if (cookies != null) {
-            boolean found = false;
-            for (Cookie cookie : cookies) {
+
+
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
                 if ("WeatherUUID".equals(cookie.getName())) {
-                    found = true;
+                    String sessionID = cookie.getValue();
+
+
                 }
             }
-            if (found) {
-                filterChain.doFilter(request, response);
-            } else {
-                response.sendRedirect("login");
-            }
-        }
 
+        }
     }
 }
