@@ -37,6 +37,16 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getCookies() != null) {
+            for (Cookie cookie : req.getCookies()) {
+                if ("WeatherUUID".equals(cookie.getName())) {
+                    resp.sendRedirect("home");
+                    return;
+                }
+            }
+        }
+
+
         TemplateEngine templateEngine = (TemplateEngine) getServletContext().getAttribute("templateEngine");
 
         if (templateEngine == null) {

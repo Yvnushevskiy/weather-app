@@ -28,11 +28,11 @@ public class CookieFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-
         if (request.getRequestURI().endsWith("login")) {
             filterChain.doFilter(request, response);
             return;
         }
+
         if (request.getRequestURI().endsWith("register")) {
             filterChain.doFilter(request, response);
             return;
@@ -50,6 +50,7 @@ public class CookieFilter implements Filter {
                         return;
                     } catch(SessionNotFoundException e) {
                         response.sendRedirect(request.getContextPath() + "/login");
+                        filterChain.doFilter(request, response);
                         return;
 
                     }
