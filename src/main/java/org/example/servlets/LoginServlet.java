@@ -54,6 +54,7 @@ public class LoginServlet extends HttpServlet {
         }else {
             Context context = new Context();
             String error = req.getParameter("error");
+            context.setVariable("username",req.getAttribute("username").toString());
             if(error==null){
                 templateEngine.process("sign-in", context, resp.getWriter());
             } else{

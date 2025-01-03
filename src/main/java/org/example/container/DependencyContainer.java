@@ -17,7 +17,7 @@ public class DependencyContainer {
     private final SessionService sessionService = new SessionService(sessionRepository);
     private final LocationRepositoryImpl locationRepository = new LocationRepositoryImpl();
     private final UserService userService = new UserService(userRepository,sessionService);
-    private final LocationService locationService = new LocationService(locationRepository, userService);
+    private final LocationService locationService = new LocationService(locationRepository);
 
     private DependencyContainer() {}
 

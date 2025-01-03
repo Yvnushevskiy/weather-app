@@ -13,5 +13,7 @@ public interface LocationRepository {
 
     Optional<List<Location>> findAllLocationsByUsername(String username);
 
-    Optional<Integer> findLocationIDByUsernameAndLocation(String Username, Location location);
+    Optional<Integer> findLocationIDByUsernameAndLocationName(String Username, String name);
+
+    Optional<Location> findLocationByLocationID(int locationID);
 }

@@ -29,6 +29,7 @@ public class searchResultServlet extends HttpServlet {
             resp.getWriter().write("Cant find HTML file");
         }else {
             Context context = new Context();
+            context.setVariable("username",req.getAttribute("username").toString());
             context.setVariable("locations", req.getParameter("locations"));
             templateEngine.process("search-result.html", context, resp.getWriter());
         }

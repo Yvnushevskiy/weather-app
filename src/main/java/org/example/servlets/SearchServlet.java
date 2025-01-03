@@ -50,6 +50,7 @@ public class SearchServlet extends HttpServlet {
             resp.getWriter().write("Cant find HTML file");
         } else {
             Context context = new Context();
+            context.setVariable("username",req.getAttribute("username").toString());
             List<LocationDTO> locations = (List<LocationDTO>) req.getAttribute("locations");
             context.setVariable("locations", locations);
             templateEngine.process("search-results", context, resp.getWriter());

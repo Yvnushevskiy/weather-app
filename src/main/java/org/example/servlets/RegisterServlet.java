@@ -57,6 +57,7 @@ public class RegisterServlet extends HttpServlet {
             resp.getWriter().write("Cant find HTML file");
         }else {
             Context context = new Context();
+            context.setVariable("username",req.getAttribute("username").toString());
             context.setVariable("error", req.getParameter("error"));
             templateEngine.process("register", context, resp.getWriter());
         }

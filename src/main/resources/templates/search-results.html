@@ -48,7 +48,16 @@
                             <p class="card-text mb-1" th:text="'Country: ' + ${location.country}"></p>
                             <p class="card-text mb-3" th:text="'State: ' + ${location.state}"></p>
                             <div class="mt-auto">
-                                <button class="btn btn-primary w-100">Add</button>
+                                <form action="addLocation" method="get">
+                                    <!-- Скрытые поля для данных локации -->
+                                    <input type="hidden" name="locationName" th:value="${location.name}">
+                                    <input type="hidden" name="locationLat" th:value="${location.lat}">
+                                    <input type="hidden" name="locationLon" th:value="${location.lon}">
+                                    <input type="hidden" name="locationCountry" th:value="${location.country}">
+                                    <input type="hidden" name="locationState" th:value="${location.state}">
+                                    <!-- Кнопка отправки формы -->
+                                    <button type="submit" class="btn btn-outline-primary w-100">Add</button>
+                                </form>
                             </div>
                         </div>
                     </div>
