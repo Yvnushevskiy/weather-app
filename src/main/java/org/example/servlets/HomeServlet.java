@@ -38,7 +38,7 @@ public class HomeServlet extends HttpServlet {
             resp.getWriter().write("Cant find HTML file");
         }else {
             Context context = new Context();
-            templateEngine.process("home", context, resp.getWriter());
+            templateEngine.process("index", context, resp.getWriter());
         }
     }
 }

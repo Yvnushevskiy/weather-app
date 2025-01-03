@@ -53,8 +53,13 @@ public class LoginServlet extends HttpServlet {
             resp.getWriter().write("Cant find HTML file");
         }else {
             Context context = new Context();
-            context.setVariable("error", req.getParameter("error"));
-            templateEngine.process("login", context, resp.getWriter());
+            String error = req.getParameter("error");
+            if(error==null){
+                templateEngine.process("sign-in", context, resp.getWriter());
+            } else{
+                templateEngine.process("sign-in-with-errors", context, resp.getWriter());
+            }
+
         }
     }
 }
