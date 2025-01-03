@@ -8,4 +8,5 @@ public class LocationService {
     private final LocationRepository locationRepository;
     private final UserService userService;
 
+
 }

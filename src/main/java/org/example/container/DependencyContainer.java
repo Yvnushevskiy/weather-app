@@ -4,10 +4,14 @@ import org.example.repositories.*;
 import org.example.services.LocationService;
 import org.example.services.SessionService;
 import org.example.services.UserService;
+import org.example.services.WeatherApiService;
+import org.example.util.JsonMapper;
 
 public class DependencyContainer {
     private static final DependencyContainer instance = new DependencyContainer();
 
+    private final WeatherApiService weatherApiService = new WeatherApiService();
+    private final JsonMapper jsonMapper = new JsonMapper();
     private final UserRepository userRepository = new UserRepositoryImpl();
     private final SessionRepository sessionRepository = new SessionRepositoryImpl();
     private final SessionService sessionService = new SessionService(sessionRepository);
@@ -30,5 +34,11 @@ public class DependencyContainer {
     }
     public LocationService getLocationService() {
         return locationService;
+    }
+    public JsonMapper getJsonMapper() {
+        return jsonMapper;
+    }
+    public WeatherApiService getWeatherApiService() {
+        return weatherApiService;
     }
 }

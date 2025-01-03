@@ -45,7 +45,7 @@ public class CookieFilter implements Filter {
                 if ("WeatherUUID".equals(cookie.getName())) {
                     UUID sessionID = UUID.fromString(cookie.getValue());
                     try {
-                        request.setAttribute("user",sessionService.getSessionById(sessionID).getUser().getLogin());
+                        request.setAttribute("username",sessionService.getSessionById(sessionID).getUser().getLogin());
                         filterChain.doFilter(request, response);
                         return;
                     } catch(SessionNotFoundException e) {

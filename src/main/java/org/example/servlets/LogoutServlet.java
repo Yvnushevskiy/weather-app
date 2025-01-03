@@ -4,9 +4,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.container.DependencyContainer;
 import org.example.exception.Database.UserPersistException;
 import org.example.model.User;
 import org.example.repositories.UserRepository;
@@ -20,27 +22,21 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-@WebServlet("/")
-public class mainPageServlet extends HttpServlet {
-
+@WebServlet("/logout")
+public class LogoutServlet extends HttpServlet {
+    UserService userService = DependencyContainer.getInstance().getUserService();
 
 
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        TemplateEngine templateEngine = (TemplateEngine) getServletContext().getAttribute("templateEngine");
+        Cookie cookie = new Cookie("WeatherUUID","");
+        cookie.setMaxAge(0);
+        resp.addCookie(cookie);
+        resp.sendRedirect("login");
 
-        if (templateEngine == null) {
-            resp.getWriter().write("Cant find HTML file");
-        }else {
-            Context context = new Context();
-            context.setVariable("error", req.getParameter("error"));
-            templateEngine.process("mainpage", context, resp.getWriter());
-        }
     }
 }
